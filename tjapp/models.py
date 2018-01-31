@@ -67,8 +67,8 @@ class Post(models.Model):
     updated = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="draft")
 
-    objects = models.Manager()
-    published = PublishedManager()
+    objects = models.Manager() # The default manager
+    published = PublishedManager() # Our published manager - used in the post_list view
 
     def get_absolute_url(self):
         return reverse('tjapp:post_detail', args=[self.publish.year,
@@ -76,9 +76,8 @@ class Post(models.Model):
                                                   self.publish.strftime('%d'),
                                                   self.slug])
 
-
-class Meta:
-    ordering = ('-publish',)
+    class Meta:
+        ordering = ('-publish',)
 
     def __str__(self):
         return self.title

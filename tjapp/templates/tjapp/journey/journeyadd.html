@@ -1,0 +1,21 @@
+{% extends 'tjapp/base.html' %}
+
+{% block title %} Share a post {% endblock %}
+
+{% block content %}
+  {% if sent %}
+     <h1>Journey delay successfully added</h1>
+     <p>
+         "{{ post.title }}" was successfully sent to {{recipient}}.
+     </p>
+  {% else %}
+      <h1>Add a journey</h1>
+      <form action="." method='post'> 
+        {{ form.as_p}}
+        {% csrf_token %}
+
+        <input type="submit" value="Add Journey"}/>
+      </form>
+  {% endif %}
+{% endblock  %}
+
