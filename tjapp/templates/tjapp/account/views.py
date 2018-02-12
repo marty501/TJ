@@ -1,15 +1,9 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login
-from .forms import LoginForm
+from .forms import LoginForm, UserRegistrationForm, UserEditForm
 from django.contrib.auth.decorators import login_required
 
-@login_required
-def dashboard(request):
-    return render(request, 'tjapp/account/dashboard.html', {'section' : 'dashboard'})
-
-def user_logout(request):
-    return render(request, 'tjapp/account/registration/logged_out.html')
 
 def user_login(request):
     if request.method == 'POST':
@@ -27,4 +21,44 @@ def user_login(request):
                 return HttpResponse('Invalid login')
     else:
         form = LoginForm()
-    return render(request, 'tjapp/account/registration/login.html', {'form': form})
+    return render(request, 'tjapp/account/login.html', {'form': form})
+
+
+@login_required
+def dashboard(request):
+    return render(request, 'tjapp/account/dashboard.html', {'section': 'dashboard'})
+
+
+def register(request):
+    if request.method == 'POST':
+        user_form = UserRegistrationForm(request.POST)
+        if user_form.is_valid():
+            # Create a new user object but avoid saving it yet
+            new_user = user_form.save(commit=False)
+            # Set the chosen password
+            new_user.set_password(
+                user_form.cleaned_data['password'])
+            # Save the User object
+            new_user.save()
+            # profile = Profile.objects.create(user=new_user)
+            return render(request,
+                          'tjapp/account/register_done.html', {'new_user': new_user})
+    else:
+        user_form = UserRegistrationForm()
+    return render(request, 'tjapp/account/register.html', {'user_form': user_form})
+
+
+@login_required
+def edit(request):
+    if request.method == 'POST':
+        user_form = UserEditForm(instance=request.user, data=request.POST)
+        # profile_form = ProfileEditForm(instance=request.user.profile, data=request.POST, files=request.FILES)
+        if user_form.is_valid():  # and profile_form.is_valid():
+            user_form.save()
+            # profile_form.save()
+            # messages.success(request, 'Profile updated successfully')
+    else:
+        # messages.success(request, 'Error updating your profile')
+        user_form = UserEditForm(instance=request.user)
+        # profile_form = ProfileEditForm(instance=request.user.profile)
+    return render(request, 'tjapp/account/edit.html', {'user_form': user_form, })

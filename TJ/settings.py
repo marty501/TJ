@@ -30,16 +30,21 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # Applications
+    'tjapp',
+    'TJ',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Third party
+    #   'debug_toolbar',
+    #   'django_extensions',
+    #   'social.apps.django_app.default',
 
-    # Applications
-    'tjapp',
-    'TJ'
 ]
 
 MIDDLEWARE = [
@@ -100,7 +105,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
@@ -128,15 +132,33 @@ EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_HOST_USER = 'apikey'
 EMAIL_HOST_PASSWORD = ''
 EMAIL_PORT = 587
-EMAIL_USE_TLS =True
+EMAIL_USE_TLS = True
 
-#EMAIL_HOST = 'smtp.gmail.com'
-#EMAIL_HOST_USER = 'your_account@gmail.com'
-#EMAIL_HOST_PASSWORD = 'your_password'
-#EMAIL_PORT = 587
-#EMAIL_USE_TLS= True
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_HOST_USER = 'your_account@gmail.com'
+# EMAIL_HOST_PASSWORD = 'your_password'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS= True
 
 LOGIN_REDIRECT_URL = reverse_lazy('dashboard')
 LOGIN_URL = reverse_lazy('login')
 LOGOUT_URL = reverse_lazy('logout')
 
+# python-social-auth settings
+AUTHENTICATION_BACKENDS = (
+  #  'social.backends.facebook.Facebook2OAuth2',
+  #  'social.backends.google.GoogleOAuth2',
+  #  'social.backends.twitter.TwitterOAuth',
+
+    'django.contrib.auth.backends.ModelBackend',
+   # 'account.authentication.EmailAuthBackend',
+)
+
+SOCIAL_AUTH_FACEBOOK_KEY = ''
+SOCIAL_AUTH_FACEBOOK_SECRET = ''
+
+SOCIAL_AUTH_TWITTER_KEY = ''
+SOCIAL_AUTH_TWITTER_SECRET = ''
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = ''
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = ''
