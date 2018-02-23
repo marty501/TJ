@@ -14,6 +14,10 @@ $RECYCLE.BIN/
 *.msm
 *.msp
 
+#MR
+.idea
+__pycache__/
+
 # Windows shortcuts
 *.lnk
 
@@ -45,3 +49,6 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+__pycache__
+/TJ/__pycache__
+__pycache__

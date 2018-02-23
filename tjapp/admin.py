@@ -16,12 +16,12 @@ class StationAdmin(admin.ModelAdmin):
 
     ordering = ['Name', 'Created', 'Updated']
 
+
 class JourneyAdmin(admin.ModelAdmin):
     list_display = ('DepartureStation', 'DelayAtDepartureStationMins')
     search_fields = ('DepartureStation', 'ArrivalStation', 'DelayAtDepartureStationMins')
     date_hierarchy = 'Created'
     ordering = ['Company', 'ScheduledDepartureTime', 'Created', 'Updated']
-
 
 
 class PostAdmin(admin.ModelAdmin):

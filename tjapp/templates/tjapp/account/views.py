@@ -64,11 +64,11 @@ def edit(request):
         # profile_form = ProfileEditForm(instance=request.user.profile)
     return render(request, 'tjapp/account/edit.html', {'user_form': user_form, })
 
+
 @login_required
 def edit(request):
     if request.method == 'POST':
-        user_form = UserEditForm(instance=request.user,
-                                 data=request.POST)
+        user_form = UserEditForm(instance=request.user, data=request.POST)
         #profile_form = ProfileEditForm(instance=request.user.profile,data=request.POST,files=request.FILES)
         if user_form.is_valid(): # and profile_form.is_valid():
             user_form.save()
@@ -83,8 +83,3 @@ def edit(request):
                                                  # 'profile_form': profile_form
                   }
                   )
-
-
-@login_required
-def dashboard(request):
-    return render(request, 'tjapp/account/dashboard.html', {'section': 'dashboard'})

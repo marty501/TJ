@@ -8,29 +8,6 @@ from .models import Journey
 from django.core.mail import send_mail
 
 
-def journey_default(request):
-    return render(request, 'tjapp/journey/default.html')
-
-
-def journey_add(request):
-    if request.method == 'POST':
-        # Something
-        journeyAddForm = JourneyAddForm(data=request.POST)
-        if journeyAddForm.is_valid():
-            # Create Journey object but don't save to the database yet
-            new_journey = journeyAddForm.save(commit=False)
-            new_journey.save()
-
-    else:
-        form = JourneyAddForm()
-    return render(request, 'tjapp/journey/journeyadd.html',
-    {
-
-        'form': form
-    }
-                  )
-
-
 def post_share(request, post_id):
     # Retrieve post by id
     post = get_object_or_404(Post, id=post_id, status='published')

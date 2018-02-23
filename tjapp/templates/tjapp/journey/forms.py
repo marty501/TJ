@@ -9,4 +9,4 @@ from tjapp.models import Station
 class JourneyAddForm(forms.ModelForm):
     class Meta:
         model = Journey
-        exclude = ('name',)
+        exclude = ('name', 'IsVerified', 'User')
