@@ -1,11 +1,40 @@
+from django.contrib.auth import logout
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.template import RequestContext
 from django.views.generic import ListView
 from .models import Post
 from tjapp.templates.tjapp.post.forms import EmailPostForm
-from tjapp.templates.tjapp.journey.forms import JourneyAddForm
+from tjapp.templates.tjapp.forms import JourneyAddForm
 from .models import Journey
 from django.core.mail import send_mail
+from django.contrib.auth.decorators import login_required
+
+
+def journeydefault(request):
+    return render(request, 'tjapp/default.html')
+
+
+@login_required
+def journeyadd(request):
+    if request.method == 'POST':
+        # Something
+        journeyAddForm = JourneyAddForm(data=request.POST)
+        if journeyAddForm.is_valid():
+            # Create Journey object but don't save to the database yet
+            new_journey = journeyAddForm.save(commit=False)
+
+            new_journey.Model.User = request.user
+            new_journey.save()
+
+    else:
+        form = JourneyAddForm()
+    return render(request, 'tjapp/journeyadd.html', {'form': form})  # journey/
+
+
+#def logout(request):
+ #   return render(request, 'logged_out.html')
 
 
 def post_share(request, post_id):

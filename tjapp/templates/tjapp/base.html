@@ -308,7 +308,7 @@ img.user-detail {
             Hello {{ request.user.first_name }},
             <a href="{% url 'tjapp:logout' %}">Logout</a>
         {% else %}
-        <a href="{% url 'tjapp:login' %}">Log-in</a>
+        <a href="{% url 'tjapp:login' %}">Log-in</a>  <a href="{% url 'tjapp:register' %}">Sign up</a>
         {% endif %}
       </span>
     </div>

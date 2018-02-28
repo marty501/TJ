@@ -146,12 +146,12 @@ LOGOUT_URL = reverse_lazy('logout')
 
 # python-social-auth settings
 AUTHENTICATION_BACKENDS = (
-  #  'social.backends.facebook.Facebook2OAuth2',
-  #  'social.backends.google.GoogleOAuth2',
-  #  'social.backends.twitter.TwitterOAuth',
+    #  'social.backends.facebook.Facebook2OAuth2',
+    #  'social.backends.google.GoogleOAuth2',
+    #  'social.backends.twitter.TwitterOAuth',
 
     'django.contrib.auth.backends.ModelBackend',
-   # 'account.authentication.EmailAuthBackend',
+    # 'account.authentication.EmailAuthBackend',
 )
 
 SOCIAL_AUTH_FACEBOOK_KEY = ''

@@ -1,9 +1,15 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import LoginForm, UserRegistrationForm, UserEditForm
+
+
+def logoutUser(request):
+   logout(request)
+   #return HttpResponseRedirect('logged_out.html')
+   return render(request, 'tjapp/account/logged_out.html', )
 
 
 def user_login(request):
@@ -15,7 +21,9 @@ def user_login(request):
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    return HttpResponse('Authenticated successfully')
+                    return HttpResponseRedirect('/tjapp')
+                    #return render(request, 'tjapp/journey/default.html')
+                    #return HttpResponse('Authenticated successfully')
                 else:
                     return HttpResponse('Disabled account')
             else:

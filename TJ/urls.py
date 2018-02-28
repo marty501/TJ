@@ -18,6 +18,6 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
     url(r'^tjapp/', include('tjapp.urls', namespace='tjapp', app_name='tjapp')),
+    url(r'^admin/', admin.site.urls),
 ]
